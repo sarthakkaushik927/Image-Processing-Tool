@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
-// Imports mein .jsx extension wapas add kar diya hai
 import AuthInput from '../components/AuthInput.jsx';
 import AuthButton from '../components/AuthButton.jsx';
 import AuthPageWrapper from '../components/AuthPageWrapper.jsx';
 
-// =======================================================================
-//  4. Verify Code Page
-// =======================================================================
+
 export default function VerifyCodePage({ setPage, onVerify }) {
   const [code, setCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);

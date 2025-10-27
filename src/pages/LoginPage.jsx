@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
-// Imports fix kiye gaye (bina .jsx extension ke)
+
 import AuthInput from '../components/AuthInput';
 import AuthButton from '../components/AuthButton';
 import AuthPageWrapper from '../components/AuthPageWrapper';
 
-// =======================================================================
-//  1. Login Page Component
-// =======================================================================
+
 export default function LoginPage({ setPage, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +19,7 @@ export default function LoginPage({ setPage, onLogin }) {
       return;
     }
     setIsLoading(true);
-    // Call the API handler from the main App
+   
     onLogin(email, password).finally(() => setIsLoading(false));
   };
 

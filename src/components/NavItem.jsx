@@ -1,8 +1,6 @@
 import React from 'react';
 
-// =======================================================================
-//  Reusable Nav Item (for Home Page)
-// =======================================================================
+
 export default function NavItem({ icon, text, active = false }) {
   return (
     <li>

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
-// Imports se .jsx extension hata diya hai
 import AuthInput from '../components/AuthInput';
 import AuthButton from '../components/AuthButton';
 import AuthPageWrapper from '../components/AuthPageWrapper';
 
-// =======================================================================
-//  3. Forgot Password Page
-// =======================================================================
+
 export default function ForgotPasswordPage({ setPage, onForgot }) {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);

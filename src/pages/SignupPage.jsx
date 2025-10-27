@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-// Imports mein .jsx extension add kiya hai
 import AuthInput from '../components/AuthInput.jsx';
 import AuthButton from '../components/AuthButton.jsx';
 import AuthPageWrapper from '../components/AuthPageWrapper.jsx';
 
-// =======================================================================
-//  2. Signup Page Component
-// =======================================================================
+
 export default function SignupPage({ setPage, onSignup }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +22,7 @@ export default function SignupPage({ setPage, onSignup }) {
       return;
     }
     setIsLoading(true);
-    // Call the API handler from App.jsx
+    
     onSignup(email, password).finally(() => setIsLoading(false));
   };
 

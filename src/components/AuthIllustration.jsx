@@ -2,15 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Image as ImageIcon } from 'lucide-react';
 
-/**
- * UPDATED: AuthIllustration
- * The illustration panel shown on the right side of the auth card.
- * Has the purple gradient.
- */
+
 export default function AuthIllustration() {
   return (
     <div className="w-1/2 bg-linear-to-br from-blue-700 via-purple-600 to-purple-700 p-12 items-center justify-center relative hidden md:flex">
-      {/* This div is for the wavy effect, just as a placeholder */}
+      
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1, transition: { delay: 0.2, type: 'spring' } }}
