@@ -27,7 +27,7 @@ export default function LoginPage({ setPage, onLogin }) {
 
   return (
     <AuthPageWrapper>
-      <h2 className="text-3xl font-bold text-white mb-2">Hello Welcome Back</h2>
+      <h2 className="text-3xl font-bold text-white mb-2">Hello Welcome</h2>
       <p className="text-white/70 mb-8">Login</p>
       
       <form className="space-y-6" onSubmit={handleSubmit}>
