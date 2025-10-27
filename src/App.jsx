@@ -21,7 +21,7 @@ import {
   Loader2 
 } from 'lucide-react';
 
-// === Import Pages (With .jsx extension) ===
+
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
@@ -30,7 +30,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
 import PasswordChangedPage from './pages/PasswordChangedPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 
-// === Import Components (With .jsx extension) ===
+
 import AuthCard from './components/AuthCard.jsx';
 
 const API_BASE_URL = 'http://localhost:3000/api/auth';
