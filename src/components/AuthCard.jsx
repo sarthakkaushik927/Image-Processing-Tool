@@ -2,11 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AuthIllustration from './AuthIllustration.jsx'; // Corrected import
 
-/**
- * UPDATED: AuthCard
- * This component provides the two-column layout (form + illustration)
- * and the purple gradient background for all auth screens.
- */
+
 export default function AuthCard({ children }) {
   return (
     <motion.div

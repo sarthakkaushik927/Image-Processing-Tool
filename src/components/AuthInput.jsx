@@ -1,9 +1,6 @@
 import React from 'react';
 
-/**
- * UPDATED: Reusable Auth Input Field
- * Matched styling closer to Figma (darker, subtle border).
- */
+
 export default function AuthInput({ icon, suffix, ...props }) {
   return (
     <div className="relative">

@@ -4,30 +4,23 @@ import {
   Search,
   LogOut,
   ArrowLeft,
-  Rocket,      // Icon for 'Getting Started'
-  Wrench,      // Icon for 'Dobby'
-  FileText,    // Icon for 'Key Concepts'
-  Settings,    // Icon for 'About'
-  LifeBuoy,    // Icon for 'Help?'
-  Star,        // Icon for 'Dobby' (alternative)
-  Home,        // Nav icon
-  Download,    // Nav icon
-  UserCircle,  // Nav icon
-  UploadCloud, // ICONS that were missing
+  Rocket,      
+  Wrench,      
+  FileText,    
+  Settings,   
+  LifeBuoy,   
+  Star,        
+  Home,        
+  Download,    
+  UserCircle,  
+  UploadCloud, 
   Edit,
   PlusCircle,
   BookOpen
 } from 'lucide-react';
 
-// --- Components Import ---
-// Saare components ab isi file mein neeche defined hain
-// Isliye imports ki zaroorat nahi hai.
-
-// =======================================================================
-//  Home Page (Main Component)
-// =======================================================================
 export default function HomePage({ onLogout }) {
-  // Yeh state control karta hai ki 'Main' view dikhega ya 'Help' view
+
   const [showHelp, setShowHelp] = useState(false);
 
   return (
@@ -37,16 +30,16 @@ export default function HomePage({ onLogout }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Background Bubbles (Peeche chalega) */}
+      
       <BubblesBackground />
       
-      {/* --- Main Content Area (Header is inside) --- */}
+     
       <main className="flex-1 p-6 md:p-10 relative z-10 w-full">
         
-        {/* --- Header Nav (New FotoFix Header) --- */}
+       
         <HeaderNav onLogout={onLogout} />
         
-        {/* --- Animated View Switcher --- */}
+        
         <div className="mt-10 md:mt-20">
           <AnimatePresence mode="wait">
             {!showHelp ? (
@@ -61,15 +54,13 @@ export default function HomePage({ onLogout }) {
   );
 }
 
-// =======================================================================
-//  Header Navigation Sub-Component
-// =======================================================================
+
 function HeaderNav({ onLogout }) {
   return (
     <nav className="w-full flex justify-between items-center">
       <div className="flex items-center gap-2 md:gap-10">
         <h1 className="text-2xl font-bold text-white">FotoFix</h1>
-        {/* Nav items desktop par dikhenge */}
+        
         <div className="hidden md:flex items-center gap-6">
           <NavItem icon={<Home />} text="Home" active />
           <NavItem icon={<Download />} text="Downloads" />
@@ -91,7 +82,7 @@ function HeaderNav({ onLogout }) {
           alt="User Avatar"
           className="w-10 h-10 rounded-full border-2 border-blue-500"
         />
-        {/* Logout button (optional, ya profile menu mein daal sakte hain) */}
+        
         <button onClick={onLogout} className="p-2 hover:bg-red-500/50 rounded-full hidden md:block">
           <LogOut size={20} />
         </button>
@@ -100,9 +91,7 @@ function HeaderNav({ onLogout }) {
   );
 }
 
-// =======================================================================
-//  Main View (Discover/Create) Sub-Component
-// =======================================================================
+
 function MainView({ setShowHelp }) {
   return (
     <motion.div
@@ -119,42 +108,40 @@ function MainView({ setShowHelp }) {
           Experience seamless image processing
         </p>
         
-        {/* === NEW BUTTON LAYOUT (FIXED) === */}
+        
         <div className="flex flex-col items-center lg:items-center gap-4">
           {/* First row: Discover & Create */}
           <div className="flex items-center gap-4">
             <GradientButton className='px-20' text="Discover" isBlue />
             <GradientButton className='px-20' text="Create" isOutline />
           </div>
-          {/* Second row: Generate Image (Custom class ke saath) */}
+         
           <GradientButton 
             text="Generate Image"
-            className="px-40 min-w-60 " // <-- YAHAN CUSTOM STYLE ADD KIYA HAI
+            className="px-40 min-w-60 " 
           />
         </div>
-        {/* === END OF NEW BUTTON LAYOUT === */}
-
-        {/* === UPDATED SmallButton USAGE (FIXED) === */}
+        
         <div className="mt-12 flex justify-center lg:justify-center gap-4 items-center">
-          {/* About Button (Text) - Added h-16 to match Dobby button */}
+          
           <SmallButton className="h-16">
             <span className="font-semibold px-6">About</span>
           </SmallButton>
           
-          {/* Dobby Button (Image) */}
+          
           <SmallButton className="w-16 h-16">
-            {/* Make sure 'chatbot.png' is in your /public folder */}
+            
             <img className='h-12 w-12' src="/chatbot.png" alt="Dobby" 
               onError={(e) => e.target.style.display='none'} // Hide if image breaks
             />
           </SmallButton>
 
-          {/* Help Button (Text) - Added h-16 to match Dobby button */}
+         
           <SmallButton className="h-16" onClick={() => setShowHelp(true)}>
             <span className="font-semibold px-6">Help?</span>
           </SmallButton>
         </div>
-      </div> {/* <-- YEH TAG MISSING THA (Left Column div) */}
+      </div> 
       
       {/* Right Column (Image) */}
       <div className="flex-1 w-full max-w-lg lg:max-w-none">
@@ -170,13 +157,11 @@ function MainView({ setShowHelp }) {
           />
         </motion.div>
       </div>
-    </motion.div> // <-- YEH TAG motion.div ka hai
+    </motion.div> 
   );
 }
 
-// =======================================================================
-//  Help View (Search/Guides) Sub-Component
-// =======================================================================
+
 function HelpView({ setShowHelp }) {
   return (
     <motion.div
@@ -232,12 +217,7 @@ function HelpView({ setShowHelp }) {
 }
 
 
-// =======================================================================
-//  INLINED COMPONENTS 
-// (Yahan neeche saare components hain taki import errors na aaye)
-// =======================================================================
 
-// --- NavItem ---
 function NavItem({ icon, text, active = false }) {
   return (
     <a 
@@ -254,7 +234,7 @@ function NavItem({ icon, text, active = false }) {
   );
 }
 
-// --- BubblesBackground ---
+
 function BubblesBackground() {
   const bubbles = [
     { id: 1, x: '10%', y: '20%', size: 300, delay: 0, duration: 15 },
@@ -292,7 +272,7 @@ function BubblesBackground() {
   );
 }
 
-// --- GradientButton (UPDATED) ---
+
 function GradientButton({ text, isBlue = false, isOutline = false, className = "" }) { // <-- className prop add kiya
   const blueGradient = "bg-gradient-to-r from-blue-500 to-blue-400 hover:from-blue-600 hover:to-blue-500";
   const purpleGradient = "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700";
@@ -300,14 +280,14 @@ function GradientButton({ text, isBlue = false, isOutline = false, className = "
 
   const buttonClasses = isOutline ? outline : (isBlue ? blueGradient : purpleGradient);
 
-  // Default padding 'px-8' kar diya hai
+
   const defaultClasses = "w-full md:w-auto px-8 py-3 rounded-full font-semibold shadow-lg transition-all transform";
 
   return (
     <motion.button
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      // Default classes aur custom 'className' ko merge kar diya
+   
       className={`${defaultClasses} ${buttonClasses} ${className}`}
     >
       {text}
@@ -316,7 +296,7 @@ function GradientButton({ text, isBlue = false, isOutline = false, className = "
 }
 
 
-// --- SmallButton (NEW GRADIENT BORDER) ---
+
 function SmallButton({ children, onClick, className = "" }) {
   return (
     <motion.button
@@ -335,7 +315,7 @@ function SmallButton({ children, onClick, className = "" }) {
 }
 
 
-// --- HelpCard ---
+
 function HelpCard({ icon, title, text }) {
   return (
     <motion.div

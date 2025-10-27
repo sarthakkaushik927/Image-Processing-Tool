@@ -1,11 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-/**
- * UPDATED: AuthPageWrapper
- * This component now just handles the animation for the form content
- * inside the AuthCard's left panel.
- */
+
 export default function AuthPageWrapper({ children }) {
   return (
     <motion.div

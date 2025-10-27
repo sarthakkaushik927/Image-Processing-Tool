@@ -1,13 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-// Imports se .jsx extension hata diya hai
+
 import AuthButton from '../components/AuthButton';
 import AuthPageWrapper from '../components/AuthPageWrapper';
 
-// =======================================================================
-//  5. Password Changed Page
-// =======================================================================
+
 export default function PasswordChangedPage({ setPage }) {
   return (
     <AuthPageWrapper>

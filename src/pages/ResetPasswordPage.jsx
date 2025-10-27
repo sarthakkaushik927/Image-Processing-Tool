@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, ArrowLeft } from 'lucide-react';
-// Imports mein .jsx extension add kar diya hai
 import AuthInput from '../components/AuthInput.jsx';
 import AuthButton from '../components/AuthButton.jsx';
 import AuthPageWrapper from '../components/AuthPageWrapper.jsx';
 
-// =======================================================================
-//  NEW: Reset Password Page
-// =======================================================================
+
 export default function ResetPasswordPage({ setPage, onResetPassword }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,7 +22,7 @@ export default function ResetPasswordPage({ setPage, onResetPassword }) {
       return;
     }
     setIsLoading(true);
-    // Call the API handler from the main App
+   
     onResetPassword(password).finally(() => setIsLoading(false));
   };
 
