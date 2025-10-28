@@ -23,3 +23,4 @@ export default function AuthInput({ icon, suffix, ...props }) {
   );
 }
 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTAwYTJjZTRkZjcyOTYwZDdhZjI2ZjgiLCJpYXQiOjE3NjE2NDk1MjYsImV4cCI6MTc2MTY1MzEyNn0._G_tWVTDiU6MyqNZZTh6dxiFxzCT6IwE7JT1iJMEph4
