@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react'; // Added User icon
-// Extensions hata diye hain
+
 import AuthInput from '../components/AuthInput'; 
 import AuthButton from '../components/AuthButton'; 
 import AuthPageWrapper from '../components/AuthPageWrapper'; 
 
-// Accepts setPage and onSignup props from App.jsx
+
 export default function SignupPage({ setPage, onSignup }) {
-  // Added username state
+ 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,11 +30,10 @@ export default function SignupPage({ setPage, onSignup }) {
       return;
     }
     setIsLoading(true);
-    // Call onSignup with username, email, and password
+   
     onSignup(username, email, password)
       .catch(() => {
-        // Handle potential API errors if needed, e.g., show specific message
-        // Error alert is already shown in App.jsx's handleSignup
+        
       })
       .finally(() => setIsLoading(false));
   };

@@ -1,10 +1,8 @@
-import React, { useState } from 'react'; // Added useState
-import { motion, AnimatePresence } from 'framer-motion'; // Added AnimatePresence
-import { ChevronRight, LogOut } from 'lucide-react'; // Import icons
+import React, { useState } from 'react'; 
+import { motion, AnimatePresence } from 'framer-motion'; 
+import { ChevronRight, LogOut } from 'lucide-react'; 
 
-// =======================================================================
-//  Logout Confirmation Modal Component
-// =======================================================================
+
 function LogoutConfirmationModal({ onLogout, onCancel }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
@@ -39,42 +37,38 @@ function LogoutConfirmationModal({ onLogout, onCancel }) {
 }
 
 
-// =======================================================================
-//  Account Page Component (Updated)
-// =======================================================================
-// Accepts onLogout function as a prop
 export default function AccountPage({ onLogout }) {
-  // State to control logout confirmation modal
+  
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  // Placeholder data (Replace with actual user data if available)
+
   const userData = {
     name: "Keshav Kumar",
     phone: "9528316559",
     email: "Keshav18@gmail.com",
     backupEmail: "krishna18@gmail.com",
-    // Password should ideally not be displayed directly
+  
     password: "••••••••",
     securityKey: "2678 8746 3827",
   };
 
   const handleLogoutClick = () => {
-    setShowLogoutModal(true); // Show modal instead of logging out directly
+    setShowLogoutModal(true); 
   };
 
   const confirmLogout = () => {
     setShowLogoutModal(false);
-    onLogout(); // Call the actual logout function
+    onLogout(); 
   };
 
   const cancelLogout = () => {
-    setShowLogoutModal(false); // Just close the modal
+    setShowLogoutModal(false); 
   };
 
   return (
     <>
       <motion.div
-        key="account-page" // Add key for AnimatePresence
+        key="account-page" 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
@@ -111,7 +105,7 @@ export default function AccountPage({ onLogout }) {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={handleLogoutClick} // Show modal on click
+              onClick={handleLogoutClick} 
               className="flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold shadow-lg"
             >
               <LogOut size={20} />
@@ -134,7 +128,7 @@ export default function AccountPage({ onLogout }) {
   );
 }
 
-// Reusable component for displaying information fields
+
 function InfoField({ label, value, isPassword = false }) {
   return (
     <div className="mb-4">
