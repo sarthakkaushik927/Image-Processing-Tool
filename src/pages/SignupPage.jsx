@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import AuthInput from '../components/AuthInput.jsx';
-import AuthButton from '../components/AuthButton.jsx';
-import AuthPageWrapper from '../components/AuthPageWrapper.jsx';
+import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react'; // Added User icon
+// Extensions hata diye hain
+import AuthInput from '../components/AuthInput'; 
+import AuthButton from '../components/AuthButton'; 
+import AuthPageWrapper from '../components/AuthPageWrapper'; 
 
-
+// Accepts setPage and onSignup props from App.jsx
 export default function SignupPage({ setPage, onSignup }) {
+  // Added username state
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
@@ -13,6 +17,10 @@ export default function SignupPage({ setPage, onSignup }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!username || !email || !password || !confirmPass) {
+      alert("Please fill in all fields.");
+      return;
+    }
     if (password !== confirmPass) {
       alert("Passwords don't match!");
       return;
@@ -22,22 +30,27 @@ export default function SignupPage({ setPage, onSignup }) {
       return;
     }
     setIsLoading(true);
-    
-    onSignup(email, password).finally(() => setIsLoading(false));
+    // Call onSignup with username, email, and password
+    onSignup(username, email, password)
+      .catch(() => {
+        // Handle potential API errors if needed, e.g., show specific message
+        // Error alert is already shown in App.jsx's handleSignup
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
     <AuthPageWrapper>
       <h2 className="text-3xl font-bold text-white">Create an account</h2>
-      
+
       <form className="space-y-5 mt-8" onSubmit={handleSubmit}>
-        <AuthButton 
-          text="Sign in with Google" 
+        <AuthButton
+          text="Sign in with Google"
           icon={
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" 
-              alt="Google" 
-              className="w-5 h-5" 
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+              alt="Google"
+              className="w-5 h-5"
             />
           }
           isSecondary={true}
@@ -49,29 +62,41 @@ export default function SignupPage({ setPage, onSignup }) {
           <div className="flex-1 h-px bg-gray-700"></div>
         </div>
 
-        <AuthInput 
-          type="email" 
-          placeholder="Email" 
+        {/* Added Username Input */}
+        <AuthInput
+          icon={<User size={20} />} // Added User icon
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <AuthInput
+          icon={<Mail size={20} />}
+          type="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <AuthInput 
-          type="password" 
-          placeholder="Enter Your Password" 
+        <AuthInput
+          icon={<Lock size={20} />}
+          type="password"
+          placeholder="Enter Your Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <AuthInput 
-          type="password" 
+        <AuthInput
+          icon={<Lock size={20} />}
+          type="password"
           placeholder="Confirm Password"
           value={confirmPass}
           onChange={(e) => setConfirmPass(e.target.value)}
         />
-        
+
         <div className="flex items-center space-x-2">
-          <input 
-            type="checkbox" 
-            id="terms" 
+          <input
+            type="checkbox"
+            id="terms"
             checked={terms}
             onChange={(e) => setTerms(e.target.checked)}
             className="w-4 h-4 rounded bg-gray-800 border-gray-700 focus:ring-purple-500 text-purple-600"
@@ -80,14 +105,15 @@ export default function SignupPage({ setPage, onSignup }) {
             I agree with the <a href="#" className="font-bold text-white hover:underline">Terms & Conditions</a>
           </label>
         </div>
-        
+
         <AuthButton text="Continue" isLoading={isLoading} isGradient={true} />
-        
+
         <p className="text-center text-sm text-white/70">
           Already have an account?{' '}
-          <button 
-            type="button" 
-            onClick={() => setPage('login')}
+          <button
+            disabled={isLoading}
+            type="button"
+            onClick={() => setPage('login')} // Navigate back to login using state
             className="font-bold text-white hover:underline focus:outline-none"
           >
             Login
@@ -97,3 +123,4 @@ export default function SignupPage({ setPage, onSignup }) {
     </AuthPageWrapper>
   );
 }
+
