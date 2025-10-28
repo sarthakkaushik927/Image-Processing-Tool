@@ -7,7 +7,8 @@ import {
   Image as ImageIcon, Loader2
 } from 'lucide-react';
 
-
+// === Import Pages ===
+// Extensions wapas add kar diye hain
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
@@ -21,6 +22,7 @@ import AuthCard from './components/AuthCard.jsx';
 
 
 const API_BASE_URL = 'https://user-registeration-and-user-login-1-vpa5.onrender.com';
+
 
 
 
@@ -45,7 +47,7 @@ export default function App() {
       throw error; // Let component know about failure
     }
     */
-
+    // Simulate login
     return new Promise(resolve => setTimeout(() => {
         setIsAuthenticated(true);
         setPage(null); 

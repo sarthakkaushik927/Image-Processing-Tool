@@ -78,6 +78,38 @@ function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+ 
+  const handleNavClick = (pageNameOrPath) => {
+     
+    console.log("handleNavClick called with:", pageNameOrPath, "setPage type:", typeof setPage);
+  
+    if (typeof setPage === 'function') {
+        setPage(pageNameOrPath); 
+    } else {
+        console.error("setPage prop is not a function inside handleNavClick!");
+    }
+    setIsOpen(false);
+  }
+
+
+   const commonNavLinks = (
+    <>
+      <NavItem icon={<Home />} text="Home" active={page === null /* && !showHelp - showHelp yahan available nahi */} onClick={() => handleNavClick(null)} />
+      <NavItem icon={<Download />} text="Downloads" active={page === 'downloads'} onClick={() => handleNavClick('downloads')} />
+      <NavItem icon={<UserCircle />} text="Account" active={page === 'account'} onClick={() => handleNavClick('account')} />
+      <NavItem icon={<Search />} text="Search" active={page === 'search'} onClick={() => handleNavClick('search')} />
+       
+    </>
+  );
+
+function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
+ 
+  console.log("HeaderNav received props - isAuthenticated:", isAuthenticated, "setPage type:", typeof setPage, "page:", page);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   
   const handleNavClick = (pageNameOrPath) => {
      
@@ -153,6 +185,7 @@ function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
 }
 
 
+
 function MainView({ setShowHelp }) {
   return (
     <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }}
@@ -205,6 +238,12 @@ function HelpView({ setShowHelp }) {
   );
 }
 
+
+function AccountView({ onLogout, setPage }) { 
+  const userData = {
+    name: "Keshav Kumar", phone: "9528316559", email: "Keshav18@gmail.com",
+    backupEmail: "krishna18@gmail.com", password: "••••••••", securityKey: "2678 8746 3827",
+  };
 
 function AccountView({ onLogout, setPage }) {
   const userData = {
@@ -266,6 +305,50 @@ function InfoField({ label, value, isPassword = false }) {
 }
 
 
+function SearchView({ setPage }) {
+  return (
+    <motion.div key="search-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
+      className="p-0 md:p-0 text-white">
+       <button onClick={() => setPage(null)} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6"> <ArrowLeft size={18} /> Back to Home </button>
+       <h2 className="text-4xl font-bold text-center mb-10">Search Page</h2>
+       <p className="text-center text-gray-400">This is the Search page content.</p>
+       <p className="text-center text-gray-500 mt-4">(Search functionality will be added here)</p>
+    </motion.div>
+  );
+}
+
+
+function DownloadsView({ setPage }) {
+  return (
+    <motion.div key="downloads-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
+      className="p-0 md:p-0 text-white">
+       <button onClick={() => setPage(null)} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6"> <ArrowLeft size={18} /> Back to Home </button>
+       <h2 className="text-4xl font-bold text-center mb-10">Downloads Page</h2>
+       <p className="text-center text-gray-400">This is where the list of downloads will appear.</p>
+    </motion.div>
+  );
+}
+
+
+function NavItem({ icon, text, active = false, onClick }) { 
+  const content = ( <> {icon} <span className="font-medium">{text}</span> </> );
+  const classes = `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors cursor-pointer ${ active ? 'bg-blue-600 text-white shadow-lg' : 'text-white/70 hover:bg-gray-700/50 hover:text-white' }`;
+
+  return ( <div onClick={onClick} className={classes}> {content} </div> );
+}
+
+function InfoField({ label, value, isPassword = false }) {
+  return (
+    <div className="mb-4">
+      <label className="block text-sm font-medium text-gray-400 mb-1">{label}</label>
+      <div className="bg-gradient-to-r from-blue-500/30 to-purple-600/30 p-3 rounded-lg text-white font-medium shadow-inner">
+        {isPassword ? '••••••••' : value}
+      </div>
+    </div>
+  );
+}
+
+
 
 function SearchView({ setPage }) {
   return (
@@ -296,7 +379,7 @@ function DownloadsView({ setPage }) {
 function NavItem({ icon, text, active = false, onClick }) { 
   const content = ( <> {icon} <span className="font-medium">{text}</span> </> );
   const classes = `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors cursor-pointer ${ active ? 'bg-blue-600 text-white shadow-lg' : 'text-white/70 hover:bg-gray-700/50 hover:text-white' }`;
-  // Always use div with onClick now
+ 
   return ( <div onClick={onClick} className={classes}> {content} </div> );
 }
 

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react'; // Added User icon
+import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react'; 
 
 import AuthInput from '../components/AuthInput'; 
 import AuthButton from '../components/AuthButton'; 
 import AuthPageWrapper from '../components/AuthPageWrapper'; 
+
 
 
 export default function SignupPage({ setPage, onSignup }) {
@@ -61,9 +62,9 @@ export default function SignupPage({ setPage, onSignup }) {
           <div className="flex-1 h-px bg-gray-700"></div>
         </div>
 
-        {/* Added Username Input */}
+     
         <AuthInput
-          icon={<User size={20} />} // Added User icon
+          icon={<User size={20} />}n
           type="text"
           placeholder="Username"
           value={username}
@@ -112,7 +113,7 @@ export default function SignupPage({ setPage, onSignup }) {
           <button
             disabled={isLoading}
             type="button"
-            onClick={() => setPage('login')} // Navigate back to login using state
+            onClick={() => setPage('login')} 
             className="font-bold text-white hover:underline focus:outline-none"
           >
             Login
