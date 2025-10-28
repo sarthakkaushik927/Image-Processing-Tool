@@ -7,8 +7,7 @@ import {
   Image as ImageIcon, Loader2
 } from 'lucide-react';
 
-// === Import Pages ===
-// Extensions wapas add kar diye hain
+
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
@@ -17,18 +16,14 @@ import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
 import PasswordChangedPage from './pages/PasswordChangedPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AccountPage from './pages/AccountPage.jsx';
-// === Import Components ===
+
 import AuthCard from './components/AuthCard.jsx';
 
-// =======================================================================
-//  API Configuration
-// =======================================================================
+
 const API_BASE_URL = 'https://user-registeration-and-user-login-1-vpa5.onrender.com';
 
 
-// =======================================================================
-//  Main App Component (State-Based Navigation)
-// =======================================================================
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [page, setPage] = useState('login'); // 'login', 'signup', 'forgotPassword', 'verifyCode', 'resetPassword', 'passwordChanged'
