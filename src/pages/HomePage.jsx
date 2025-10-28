@@ -112,17 +112,17 @@ function MainView({ setShowHelp }) {
         <div className="flex flex-col items-center lg:items-center gap-4">
           {/* First row: Discover & Create */}
           <div className="flex items-center gap-4">
-            <GradientButton className='px-20' text="Discover" isBlue />
-            <GradientButton className='px-20' text="Create" isOutline />
+            <GradientButton className='lg:px-20' text="Discover" isBlue />
+            <GradientButton className='lg:px-20' text="Create" isOutline />
           </div>
          
           <GradientButton 
-            text="Generate Image"
-            className="px-40 min-w-60 " 
+            text="GenerateImage"
+            className="lg:px-40 px-40 max-w-40 lg:min-w-60 justfy-center items-center text-center flex flex-col" 
           />
         </div>
         
-        <div className="mt-12 flex justify-center lg:justify-center gap-4 items-center">
+        <div className="mt-12 flex justify-center iten lg:justify-center gap-4 items-center">
           
           <SmallButton className="h-16">
             <span className="font-semibold px-6">About</span>
