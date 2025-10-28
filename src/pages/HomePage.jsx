@@ -1,80 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// useNavigate hook hata diya kyunki use nahi ho raha
 // import { useNavigate } from 'react-router-dom';
 import {
   Search, LogOut, ArrowLeft, Rocket, Wrench, FileText, Settings,
   LifeBuoy, Star, Home, Download, UserCircle, UploadCloud, Edit,
-  PlusCircle, BookOpen, Menu, X, LogIn, UserPlus, // Added icons
-  ChevronRight // Added for AccountView
+  PlusCircle, BookOpen, Menu, X, LogIn, UserPlus, 
+  ChevronRight 
 } from 'lucide-react';
 
-// =======================================================================
-//  Home Page (Main Component) - Navbar inside, AccountView added
-// =======================================================================
-// Accepts isAuthenticated, onLogout, setPage, page props
-export default function HomePage({ isAuthenticated, onLogout, setPage, page }) { // Added page prop
-  // state for help view remains
-  const [showHelp, setShowHelp] = useState(false); // State for Help view toggle
 
-  // --- DEBUG LOG ---
-  // console.log("HomePage rendered with page prop:", page, "and showHelp:", showHelp);
+export default function HomePage({ isAuthenticated, onLogout, setPage, page }) { 
+  
+  const [showHelp, setShowHelp] = useState(false); 
 
-  // Determine which view to show based on page state and showHelp state
   const showAccountView = isAuthenticated && page === 'account';
-  const showHelpView = showHelp; // Controlled by local state
+  const showHelpView = showHelp; 
   const showDownloadsView = page === 'downloads';
   const showSearchView = page === 'search';
-  // Show MainView if not showing Account, Help, Downloads or Search
-  // const showMainView = !showAccountView && !showHelpView && !showDownloadsView && !showSearchView; // Variable remains unused, but harmless
-
-  // Reset help view state if page prop changes back to null (Home) or another page
+ 
   useEffect(() => {
-      // Agar 'page' state null (Home) ho jaata hai ya 'account', 'downloads', 'search' hota hai,
-      // toh make sure help view band ho jaaye.
+      
+     
       if (page === null || page === 'account' || page === 'downloads' || page === 'search') {
-          // --- DEBUG LOG ---
-          // console.log("useEffect resetting showHelp to false because page changed to:", page);
+          
           setShowHelp(false);
       }
-      // Note: 'help' view 'showHelp' state se control ho raha hai, 'page' state se nahi
-  }, [page]); // Yeh effect tab run hoga jab 'page' prop badlega
+     
+  }, [page]); 
 
 
   return (
     <motion.div
-      className="flex min-h-screen bg-gradient-to-b from-[#1c1c3a] to-[#121c3a] text-white relative" // Adjusted gradient slightly
+      className="flex min-h-screen bg-gradient-to-b from-[#1c1c3a] to-[#121c3a] text-white relative" 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <BubblesBackground />
       <main className="flex-1 p-6 md:p-10 relative z-10 w-full">
-        {/* HeaderNav ko yahan render karein aur props pass karein */}
+        {/* HeaderNav props */}
         <HeaderNav
           isAuthenticated={isAuthenticated}
           onLogout={onLogout}
-          setPage={setPage} // Pass setPage down
-          page={page} // <-- Pass page state down
-          // setShowHelp prop hata diya gaya hai
+          setPage={setPage} 
+          page={page} 
+          
         />
 
-        <div className="mt-10 md:mt-20"> {/* Adjusted margin */}
+        <div className="mt-10 md:mt-20"> 
           <AnimatePresence mode="wait">
-            {/* --- SIMPLIFIED CONDITIONAL RENDERING --- */}
-            {/* Check page prop directly */}
+           
             {isAuthenticated && page === 'account' ? (
               <AccountView key="account" onLogout={onLogout} setPage={setPage} />
             ) : page === 'downloads' ? (
               <DownloadsView key="downloads" setPage={setPage} />
             ) : page === 'search' ? (
               <SearchView key="search" setPage={setPage} />
-            ) : showHelp ? ( // Check showHelp state separately
-              <HelpView key="help" setShowHelp={setShowHelp} /> // Pass setShowHelp instead of setPage
-            ) : ( // Default to MainView (when page is null or other unhandled value)
-              <MainView key="main" setShowHelp={setShowHelp} /> // Pass setShowHelp instead of setPage
+            ) : showHelp ? ( 
+              <HelpView key="help" setShowHelp={setShowHelp} /> 
+            ) : (
+              <MainView key="main" setShowHelp={setShowHelp} /> 
             )}
-            {/* --- END SIMPLIFIED LOGIC --- */}
+            
           </AnimatePresence>
         </div>
       </main>
@@ -82,41 +69,68 @@ export default function HomePage({ isAuthenticated, onLogout, setPage, page }) {
   );
 }
 
-// =======================================================================
-//  Header Navigation Sub-Component (UPDATED - setShowHelp removed)
-// =======================================================================
-// Accepts isAuthenticated, onLogout, setPage, page props
-// setShowHelp prop hata diya
+
 function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
-  // --- DEBUG LOG ---
+ 
   console.log("HeaderNav received props - isAuthenticated:", isAuthenticated, "setPage type:", typeof setPage, "page:", page);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Helper function for navigation to close mobile menu
+ 
   const handleNavClick = (pageNameOrPath) => {
-     // --- DEBUG LOG ---
+     
     console.log("handleNavClick called with:", pageNameOrPath, "setPage type:", typeof setPage);
-    // Reset help state logic yahan se hata diya
-    // Ensure setPage is a function before calling it
+  
     if (typeof setPage === 'function') {
-        setPage(pageNameOrPath); // Use setPage for state-based navigation
+        setPage(pageNameOrPath); 
     } else {
         console.error("setPage prop is not a function inside handleNavClick!");
     }
     setIsOpen(false);
   }
 
-  // Common links jo hamesha dikhenge
+
    const commonNavLinks = (
     <>
       <NavItem icon={<Home />} text="Home" active={page === null /* && !showHelp - showHelp yahan available nahi */} onClick={() => handleNavClick(null)} />
       <NavItem icon={<Download />} text="Downloads" active={page === 'downloads'} onClick={() => handleNavClick('downloads')} />
       <NavItem icon={<UserCircle />} text="Account" active={page === 'account'} onClick={() => handleNavClick('account')} />
       <NavItem icon={<Search />} text="Search" active={page === 'search'} onClick={() => handleNavClick('search')} />
-       {/* Help NavItem yahan nahi hai, MainView se trigger hoga */}
+       
+    </>
+  );
+
+function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
+ 
+  console.log("HeaderNav received props - isAuthenticated:", isAuthenticated, "setPage type:", typeof setPage, "page:", page);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  
+  const handleNavClick = (pageNameOrPath) => {
+     
+    console.log("handleNavClick called with:", pageNameOrPath, "setPage type:", typeof setPage);
+    
+    if (typeof setPage === 'function') {
+        setPage(pageNameOrPath); 
+    } else {
+        console.error("setPage prop is not a function inside handleNavClick!");
+    }
+    setIsOpen(false);
+  }
+
+  
+   const commonNavLinks = (
+    <>
+      <NavItem icon={<Home />} text="Home" active={page === null} onClick={() => handleNavClick(null)} />
+      <NavItem icon={<Download />} text="Downloads" active={page === 'downloads'} onClick={() => handleNavClick('downloads')} />
+      <NavItem icon={<UserCircle />} text="Account" active={page === 'account'} onClick={() => handleNavClick('account')} />
+      <NavItem icon={<Search />} text="Search" active={page === 'search'} onClick={() => handleNavClick('search')} />
+       
     </>
   );
 
@@ -124,7 +138,7 @@ function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
     <nav className="w-full flex justify-between items-center relative z-20">
       <div className="flex items-center gap-2 md:gap-4">
         <img src="logo.svg" alt="FotoFix Logo" className="h-8 w-auto"  />
-        {/* Logo click goes home */}
+       
         <span onClick={() => handleNavClick(null)} className="translate-y-1 text-2xl font-bold text-white cursor-pointer">FotoFix</span>
         <div className="hidden md:flex items-center gap-6 ml-4">
            {commonNavLinks}
@@ -140,7 +154,7 @@ function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
         ) : (
           <>
             <div className="hidden md:flex items-center gap-4">
-                {/* Ensure setPage is passed correctly before using onClick */}
+                
                 <button onClick={() => typeof setPage === 'function' ? setPage('login') : console.error("setPage not available for Login button")} className="px-4 py-2 rounded-full text-white hover:bg-white/10 transition-colors"> Login </button>
                 <button onClick={() => typeof setPage === 'function' ? setPage('signup') : console.error("setPage not available for Signup button")} className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all"> Sign Up </button>
             </div>
@@ -157,7 +171,7 @@ function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
               {isAuthenticated ? (
                 <li> <button onClick={() => { onLogout(); setIsOpen(false); }} className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/20 hover:text-red-300"> <LogOut size={20} /> <span className="font-medium">Logout</span> </button> </li>
               ) : ( <>
-                   {/* Ensure setPage is passed correctly before using handleNavClick */}
+                   
                    <li onClick={() => handleNavClick('login')}> <div className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-gray-700/50 hover:text-white cursor-pointer"> <LogIn size={20} /> <span className="font-medium">Login</span> </div> </li>
                    <li onClick={() => handleNavClick('signup')}> <div className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-gray-700/50 hover:text-white cursor-pointer"> <UserPlus size={20} /> <span className="font-medium">Sign Up</span> </div> </li>
                  </>
@@ -171,9 +185,7 @@ function HeaderNav({ isAuthenticated, onLogout, setPage, page }) {
 }
 
 
-// =======================================================================
-//  Main View (Discover/Create) Sub-Component
-// =======================================================================
+
 function MainView({ setShowHelp }) {
   return (
     <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }}
@@ -205,9 +217,6 @@ function MainView({ setShowHelp }) {
 
 
 
-// =======================================================================
-//  Help View (Search/Guides) Sub-Component
-// =======================================================================
 function HelpView({ setShowHelp }) {
   return (
     <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }} >
@@ -229,11 +238,14 @@ function HelpView({ setShowHelp }) {
   );
 }
 
-// =======================================================================
-//  NEW Account View Sub-Component
-// =======================================================================
-function AccountView({ onLogout, setPage }) { // Accepts onLogout and setPage
-  // Placeholder data
+
+function AccountView({ onLogout, setPage }) { 
+  const userData = {
+    name: "Keshav Kumar", phone: "9528316559", email: "Keshav18@gmail.com",
+    backupEmail: "krishna18@gmail.com", password: "••••••••", securityKey: "2678 8746 3827",
+  };
+
+function AccountView({ onLogout, setPage }) {
   const userData = {
     name: "Keshav Kumar", phone: "9528316559", email: "Keshav18@gmail.com",
     backupEmail: "krishna18@gmail.com", password: "••••••••", securityKey: "2678 8746 3827",
@@ -241,7 +253,7 @@ function AccountView({ onLogout, setPage }) { // Accepts onLogout and setPage
 
   return (
     <motion.div key="account-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
-      className="p-0 md:p-0 text-white" // Reduced padding, rely on main padding
+      className="p-0 md:p-0 text-white"
     >
       {/* Back button */}
        <button onClick={() => setPage(null)} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6">
@@ -280,7 +292,7 @@ function AccountView({ onLogout, setPage }) { // Accepts onLogout and setPage
   );
 }
 
-// Reusable component for displaying information fields (used by AccountView)
+
 function InfoField({ label, value, isPassword = false }) {
   return (
     <div className="mb-4">
@@ -293,9 +305,6 @@ function InfoField({ label, value, isPassword = false }) {
 }
 
 
-// =======================================================================
-//  NEW SearchView Placeholder Sub-Component (UPDATED)
-// =======================================================================
 function SearchView({ setPage }) {
   return (
     <motion.div key="search-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
@@ -308,9 +317,7 @@ function SearchView({ setPage }) {
   );
 }
 
-// =======================================================================
-//  NEW DownloadsView Placeholder Sub-Component (UPDATED)
-// =======================================================================
+
 function DownloadsView({ setPage }) {
   return (
     <motion.div key="downloads-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
@@ -323,13 +330,56 @@ function DownloadsView({ setPage }) {
 }
 
 
-// =======================================================================
-//  INLINED COMPONENTS (Single Definition - Cleaned Up)
-// =======================================================================
-function NavItem({ icon, text, active = false, onClick }) { // Removed isLink
+function NavItem({ icon, text, active = false, onClick }) { 
   const content = ( <> {icon} <span className="font-medium">{text}</span> </> );
   const classes = `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors cursor-pointer ${ active ? 'bg-blue-600 text-white shadow-lg' : 'text-white/70 hover:bg-gray-700/50 hover:text-white' }`;
-  // Always use div with onClick now
+
+  return ( <div onClick={onClick} className={classes}> {content} </div> );
+}
+
+function InfoField({ label, value, isPassword = false }) {
+  return (
+    <div className="mb-4">
+      <label className="block text-sm font-medium text-gray-400 mb-1">{label}</label>
+      <div className="bg-gradient-to-r from-blue-500/30 to-purple-600/30 p-3 rounded-lg text-white font-medium shadow-inner">
+        {isPassword ? '••••••••' : value}
+      </div>
+    </div>
+  );
+}
+
+
+
+function SearchView({ setPage }) {
+  return (
+    <motion.div key="search-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
+      className="p-0 md:p-0 text-white">
+       <button onClick={() => setPage(null)} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6"> <ArrowLeft size={18} /> Back to Home </button>
+       <h2 className="text-4xl font-bold text-center mb-10">Search Page</h2>
+       <p className="text-center text-gray-400">This is the Search page content.</p>
+       <p className="text-center text-gray-500 mt-4">(Search functionality will be added here)</p>
+    </motion.div>
+  );
+}
+
+
+function DownloadsView({ setPage }) {
+  return (
+    <motion.div key="downloads-view" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}
+      className="p-0 md:p-0 text-white">
+       <button onClick={() => setPage(null)} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6"> <ArrowLeft size={18} /> Back to Home </button>
+       <h2 className="text-4xl font-bold text-center mb-10">Downloads Page</h2>
+       <p className="text-center text-gray-400">This is where the list of downloads will appear.</p>
+    </motion.div>
+  );
+}
+
+
+
+function NavItem({ icon, text, active = false, onClick }) { 
+  const content = ( <> {icon} <span className="font-medium">{text}</span> </> );
+  const classes = `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors cursor-pointer ${ active ? 'bg-blue-600 text-white shadow-lg' : 'text-white/70 hover:bg-gray-700/50 hover:text-white' }`;
+ 
   return ( <div onClick={onClick} className={classes}> {content} </div> );
 }
 

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react'; // Added User icon
-// Extensions hata diye hain
+import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react'; 
+
 import AuthInput from '../components/AuthInput'; 
 import AuthButton from '../components/AuthButton'; 
 import AuthPageWrapper from '../components/AuthPageWrapper'; 
 
-// Accepts setPage and onSignup props from App.jsx
+
+
 export default function SignupPage({ setPage, onSignup }) {
-  // Added username state
+ 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,11 +31,10 @@ export default function SignupPage({ setPage, onSignup }) {
       return;
     }
     setIsLoading(true);
-    // Call onSignup with username, email, and password
+   
     onSignup(username, email, password)
       .catch(() => {
-        // Handle potential API errors if needed, e.g., show specific message
-        // Error alert is already shown in App.jsx's handleSignup
+        
       })
       .finally(() => setIsLoading(false));
   };
@@ -62,9 +62,9 @@ export default function SignupPage({ setPage, onSignup }) {
           <div className="flex-1 h-px bg-gray-700"></div>
         </div>
 
-        {/* Added Username Input */}
+     
         <AuthInput
-          icon={<User size={20} />} // Added User icon
+          icon={<User size={20} />}n
           type="text"
           placeholder="Username"
           value={username}
@@ -113,7 +113,7 @@ export default function SignupPage({ setPage, onSignup }) {
           <button
             disabled={isLoading}
             type="button"
-            onClick={() => setPage('login')} // Navigate back to login using state
+            onClick={() => setPage('login')} 
             className="font-bold text-white hover:underline focus:outline-none"
           >
             Login
