@@ -118,7 +118,7 @@ function MainView({ setShowHelp }) {
          
           <GradientButton 
             text="GenerateImage"
-            className="lg:px-40 px-40 max-w-40 lg:min-w-60 justfy-center items-center text-center flex flex-col" 
+            className="lg:px-60 px-40 max-w-40 lg:min-w-60 justfy-center items-center text-center flex flex-col" 
           />
         </div>
         
