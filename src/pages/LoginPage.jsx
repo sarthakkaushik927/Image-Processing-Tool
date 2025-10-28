@@ -62,6 +62,7 @@ export default function LoginPage({ setPage, onLogin }) {
         <p className="text-center text-sm text-white/70">
           Don't have an account?{' '}
           <button 
+            disabled={isLoading}
             type="button" 
             onClick={() => setPage('signup')}
             className="font-bold text-white hover:underline focus:outline-none"

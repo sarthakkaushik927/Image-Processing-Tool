@@ -11,17 +11,18 @@ export default function AuthCard({ children }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-      className="w-full min-h-screen bg-black flex flex-col md:flex-row"
+      className="w-full  bg-black flex flex-col md:flex-row"
     >
-      {/* Left Side (Form Content) */}
+      {/* Left Side (Illustration) */}
+      <AuthIllustration />
+      
+      
+      {/* Right Side (form) */}
       <div className="w-full md:w-1/2 p-8 md:p-12 bg-black flex flex-col justify-center items-center min-h-screen">
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>
       </div>
-      
-      {/* Right Side (Illustration) */}
-      <AuthIllustration />
     </motion.div>
   );
 }

@@ -8,7 +8,7 @@ export default function BubblesBackground() {
     <div className="absolute inset-0 overflow-hidden z-0">
       {/* Bubble 1 */}
       <motion.div 
-        className="absolute w-96 h-96 bg-purple-700/10 rounded-full filter blur-3xl"
+        className="absolute w-96 h-96 bg-purple-800 rounded-full filter blur-3xl"
         initial={{ x: '-10rem', y: '-10rem' }}
         animate={{ 
           x: ['-10rem', '0rem', '-10rem'], 
@@ -23,7 +23,7 @@ export default function BubblesBackground() {
       />
       {/* Bubble 2 */}
       <motion.div 
-        className="absolute w-96 h-96 bg-blue-700/10 rounded-full filter blur-3xl"
+        className="absolute w-96 h-96 bg-blue-800 rounded-full filter blur-3xl"
         initial={{ x: '20rem', y: '20rem' }} 
         animate={{ 
           x: ['20rem', '10rem', '20rem'],
@@ -39,7 +39,7 @@ export default function BubblesBackground() {
       />
        {/* Bubble 3 */}
       <motion.div 
-        className="absolute w-80 h-80 bg-indigo-700/5 rounded-full filter blur-3xl"
+        className="absolute w-80 h-80 bg-indigo-800 rounded-full filter blur-3xl"
         initial={{ x: '10rem', y: '5rem' }} 
         animate={{ 
           x: ['10rem', '15rem', '10rem'],
